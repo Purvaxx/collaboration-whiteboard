@@ -1,148 +1,130 @@
-**🧠 NexusBoard AI**
+# NexusBoard AI
 
-**A Real-Time Collaborative Whiteboard Designed for Modern Teams**
+**NexusBoard AI** is an enterprise-grade, real-time collaborative whiteboard augmented with multimodal AI reasoning.
+It combines a high-performance canvas engine, low-latency synchronization, and Gemini-powered analysis to support technical design, architecture reviews, and strategic collaboration.
 
-NexusBoard AI is a **real-time collaborative whiteboard application** focused on building a scalable, enterprise-ready foundation for distributed teamwork.
-It is designed as more than a drawing tool — **a collaborative workspace** that combines interactive UI, real-time systems thinking, and authentication flows used in production SaaS products.
+## Overview
 
-**🎯 Why NexusBoard AI**
+NexusBoard is designed as a **local-first, real-time system**. User interactions are rendered instantly on the client, synchronized across peers via WebSockets, and optionally analyzed by an AI layer that can interpret both the visual canvas and its underlying data model. The system is optimized for correctness, performance, and developer ergonomics, with zero build tooling required for modern browsers.
 
-Modern teams need tools that support **live collaboration, structured thinking, and scalability**.
-NexusBoard AI explores how such systems are built by focusing on:
+## Core Features
 
-* Real-time multi-user interaction
-* Interactive canvas-based UI
-* Authentication and session handling
-* Clean, extensible architecture for future AI features
+* **Real-Time Collaboration**
+  Low-latency cursor tracking and element synchronization using Socket.io.
 
-This project reflects **how real collaborative platforms (Miro, Figma, Notion) are engineered**, not a tutorial-level demo.
+* **High-Performance Canvas Engine**
+  Custom HTML5 Canvas renderer with coordinate mapping, panning, selection, and real-time manipulation (120fps capable).
 
-## ✨ Core Features
+* **AI Board Auditor**
+  Multimodal Gemini integration that analyzes the board as both an image and structured data to identify architectural gaps, design flaws, or missing components.
 
-### 🎨 Interactive Whiteboard UI
+* **Conflict-Free Sync Model**
+  CRDT-style element updates using unique IDs and state broadcasting, enabling parallel edits without overwrites.
 
-* Infinite, zoomable canvas
-* Drawing tools: pen, pencil, highlighter, eraser
-* Shapes, arrows, connectors
-* **Sticky notes and text boxes**
+* **Enterprise Modules**
+  Infrastructure dashboard, scheduling system with persistence, plugin marketplace simulation, and architecture specification view.
 
-  * Editable, draggable, resizable
-  * Multi-line text support
-  * Color-coded organization
+* **Zero-Build Native ESM Architecture**
+  Uses import maps and native ES modules; no bundler or build step required.
 
-### 👥 Collaboration-Ready Design
+## Technology Stack
 
-* Designed for **real-time multi-user collaboration**
-* Cursor and presence awareness (UI-ready)
-* Architecture compatible with WebSockets and CRDT-based sync (Y.js / OT)
+**Frontend**
 
-### 🔐 Authentication & User Flow
+* React 19 (concurrent features)
+* TypeScript
+* Tailwind CSS
+* Framer Motion
+* HTML5 Canvas API
 
-* Professional **Sign Up / Sign In UI**
-* Login via:
+**Backend**
 
-  * Email & password
-  * Google OAuth
-* Secure logout functionality
-* UI designed for JWT / session-based authentication
+* Node.js
+* Express
+* Socket.io
 
-### 🧠 AI-Extensible Architecture
+**AI**
 
-* Prepared for:
+* Google Gemini API
+  (`@google/genai`, `gemini-3-pro-preview`)
 
-  * Handwriting recognition
-  * Shape correction
-  * Auto-organization of diagrams
-  * Board summarization and insights
+**Runtime**
 
-## 🧩 Architecture Overview
+* Native ES Modules (ESM)
+
+---
+
+## Architecture Summary
+
+* **Local-First Rendering:**
+  All interactions render immediately on the client for responsiveness.
+
+* **Sync Mesh:**
+  A Socket.io layer broadcasts cursor movement, drawing events, and element state updates to connected clients.
+
+* **Intelligence Layer:**
+  Captures the canvas as a Base64 image along with structured element metadata and submits both to Gemini for contextual reasoning.
+
+* **Server Role:**
+  Express serves static assets and acts as the WebSocket orchestration layer.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+* Node.js v18 or later
+* Google Gemini API key
+
+### Environment Configuration
+
+Create a `.env` file in the project root:
+
+```env
+API_KEY=your_gemini_api_key
+PORT=5000
+```
+
+Ensure `.env` is included in `.gitignore`.
+
+### Install Dependencies
+
+```bash
+npm install express socket.io cors
+```
+
+### Run the Server
+
+```bash
+npx tsx server/index.ts
+```
+
+The application will be available at:
 
 ```
-Frontend (React + TypeScript)
-        |
-        | WebSockets / HTTP
-        |
-Backend (Node.js + TypeScript)
-        |
-        | Real-Time Sync Engine (CRDT-ready)
-        |
-Database / Cache (PostgreSQL / Redis)
+http://localhost:5000
 ```
 
-The system is designed to:
-
-* Support concurrent users
-* Avoid collaboration conflicts
-* Scale cleanly with team size
-* Integrate AI services without UI rewrites
-
 ---
 
-## 🛠 Tech Stack
+## Deployment
 
-### Frontend
+The application is deployment-ready and can be hosted on platforms such as Render, Railway, or Heroku.
+The Express server handles both static asset serving and WebSocket communication.
 
-* **TypeScript**
-* **React**
-* Canvas-based rendering (Konva.js / HTML5 Canvas)
-* Modular, scalable component architecture
+## Demo
 
-### Backend (Designed)
+This section showcases the core capabilities of NexusBoard AI, including real-time collaboration, canvas performance, and AI-assisted analysis.
 
-* **Node.js + TypeScript**
-* WebSocket-based real-time communication
-* CRDT-compatible collaboration engine
+Video Walkthroughs
 
-### Authentication
+**Full Product Overview**
 
-* Google OAuth
-* Email/password authentication
-* JWT / secure session flow
+https://github.com/user-attachments/assets/102eccff-c96a-41bd-970d-1cde6ec74cc3
 
-### Infrastructure (Planned)
+## Notes
 
-* Dockerized services
-* Cloud-ready (AWS / GCP)
-* Redis for real-time state
-* PostgreSQL / MongoDB for persistence
+* The server is configured to correctly serve the root route (`/`), avoiding common “Cannot GET /” issues.
+* API keys must never be committed to source control.
 
----
-
-## 📌 Current Project Status
-
-✅ Implemented:
-
-* Whiteboard UI
-* Sticky notes & text boxes
-* Drawing tools
-* Authentication UI (Sign In / Sign Up / Google Login / Logout)
-
-🛠 In Progress / Designed:
-
-* Real-time collaboration backend
-* Persistent board storage
-* AI-assisted features
-
----
-
-## 📷 Screenshots / Demo
-
-https://github.com/user-attachments/assets/da085642-9844-42a7-93f2-400841ebfdf3
-
-
-
-
-## 🎓 What This Project Demonstrates
-
-This project demonstrates my ability to:
-
-* Design **complex interactive UIs**
-* Think in terms of **real-time systems**
-* Structure **enterprise-ready frontend architecture**
-* Understand collaboration models used in modern SaaS tools
-* Communicate technical ideas clearly and professionally
-
-## 👤 Author
-
-**Purva A**
-Real-Time Collaboration | System Design
