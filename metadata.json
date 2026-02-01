@@ -1,0 +1,8 @@
+{
+  "name": "NexusBoard AI - Enterprise Collaborative Whiteboard",
+  "description": "A next-generation, real-time collaborative whiteboard featuring AI-driven diagramming, handwriting recognition, and seamless enterprise integrations.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
